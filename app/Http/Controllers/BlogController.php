@@ -14,18 +14,17 @@ class BlogController extends Controller
     {
         Cache::forget("blogs");
 
-        if(Cache::get("blogs")){
+        if (Cache::get("blogs")) {
 
             $blogs = Cache::get("blogs");
 
-            return view("blogs.index", compact("blogs"))->with("message","Cache used successfully!");
-        }  
-        else {
+            return view("blogs.index", compact("blogs"))->with("message", "Cache used successfully!");
+        } else {
             $blogs = Blog::with("articles")->get();
             Cache::put("blogs", $blogs);
-        }  
-        
-        return view("blogs.index", compact("blogs"))->with("message","MySQL used successfully!");;
+        }
+
+        return view("blogs.index", compact("blogs"))->with("message", "MySQL used successfully!");;
     }
 
     public function create()
@@ -35,15 +34,14 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-                "title" => "required|min:3|max:35",
-                "body" => "required|max:1000",
-                "published_at" => "required",
+        $validator = Validator::make($request->all(), [
+            "title" => "required|min:3|max:35",
+            "body" => "required|max:1000",
+            "published_at" => "required",
         ]);
 
-        if ($validator->fails())
-        {
-          return response()->json(["errors"=>$validator->errors()->all()]);
+        if ($validator->fails()) {
+            return response()->json(["errors" => $validator->errors()->all()]);
         }
 
         $blog = new Blog();
@@ -54,7 +52,7 @@ class BlogController extends Controller
         $blog->save();
         Cache::forget("blogs");
 
-        return redirect("/home")->with("success","Blog created successfully!");
+        return redirect("/home")->with("success", "Blog created successfully!");
     }
 
     public function show(Blog $blog)
@@ -69,15 +67,14 @@ class BlogController extends Controller
 
     public function update(Blog $blog, Request $request)
     {
-         $validator = Validator::make($request->all(),[
-                "title" => "required|min:3|max:35",
-                "body" => "required|max:1000",
-                "published_at" => "required",
+        $validator = Validator::make($request->all(), [
+            "title" => "required|min:3|max:35",
+            "body" => "required|max:1000",
+            "published_at" => "required",
         ]);
 
-        if ($validator->fails())
-        {
-          return response()->json(["errors"=>$validator->errors()->all()]);
+        if ($validator->fails()) {
+            return response()->json(["errors" => $validator->errors()->all()]);
         }
 
         $blog->title = $request->title;
@@ -87,7 +84,7 @@ class BlogController extends Controller
 
         Cache::forget("blogs");
 
-        return redirect("/home")->with("success","Blog updated successfully!");
+        return redirect("/home")->with("success", "Blog updated successfully!");
     }
 
     public function destroy(Blog $blog)
@@ -96,14 +93,14 @@ class BlogController extends Controller
 
         Cache::forget("blogs");
 
-        return redirect("/home")->with("success","Blog deleted successfully!");
+        return redirect("/home")->with("success", "Blog deleted successfully!");
     }
 
     public function restoreArticles()
     {
         Article::withTrashed()->restore();
 
-        return redirect("/home")->with("success","Articles restored successfully!");
+        return redirect("/home")->with("success", "Articles restored successfully!");
     }
 
     public function getBlog($id)

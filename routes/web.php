@@ -34,6 +34,5 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('blog/{blog}', [App\Http\Controllers\BlogController::class, 'destroy']);
     Route::get('getBlog/{blog}', [App\Http\Controllers\BlogController::class, 'getBlog']);
 
-    Route::resource('article', App\Http\Controllers\ArticleController::class);  
-
+    Route::resource('article', App\Http\Controllers\ArticleController::class);
 });

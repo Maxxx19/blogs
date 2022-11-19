@@ -9,11 +9,11 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
-                    
+
                     <form action="/article/{{$article->id}}" method="post">
                         @csrf
                         @method('PUT')
@@ -31,10 +31,10 @@
                             <label for="">Publish At</label>
                             <input type="date" name="published_at" class="form-control" value="{{ date('Y-m-d', strtotime($article->published_at)) }}">
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>

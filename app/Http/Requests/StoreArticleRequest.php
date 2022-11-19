@@ -24,10 +24,10 @@ class StoreArticleRequest extends FormRequest
     public function rules()
     {
         return [
-                "title" => "required|min:3|max:35",
-                "body" => "required|max:1000",
-                "published_at" => "required",
-                "blog_id" => "required",
+            "title" => "required|min:3|max:35",
+            "body" => "required|max:1000",
+            "published_at" => "required",
+            "blog_id" => "required",
         ];
     }
 }

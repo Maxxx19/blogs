@@ -15,15 +15,15 @@ class BlogTableSeeder extends Seeder
     public function run()
     {
         DB::table('blogs')->insert([
-        	'title' => 'Blog1',
+            'title' => 'Blog1',
             'body' => 'Old blog',
-        	'published_at' => now()->subDays(30),
+            'published_at' => now()->subDays(30),
             'created_at' => now()->subDays(30),
         ]);
         DB::table('blogs')->insert([
-        	'title' => 'Blog2',
+            'title' => 'Blog2',
             'body' => 'New blog',
-        	'published_at' => now()->subDays(15),
+            'published_at' => now()->subDays(15),
             'created_at' => now()->subDays(15),
         ]);
     }

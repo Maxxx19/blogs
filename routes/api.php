@@ -17,26 +17,21 @@ use Illuminate\Support\Facades\Cookie;
 */
 
 Route::middleware(['auth.basic'])->group(function ($user) {
-   
+
     Route::get('/user', function (Request $request) {
-            
-        if($request->user()->user_type == 'admin'){
-            $data = bcrypt("sdfskjl2j42jkl".rand(1,121450893));
+
+        if ($request->user()->user_type == 'admin') {
+            $data = bcrypt("sdfskjl2j42jkl" . rand(1, 121450893));
             Cache::put("user_api_data", $data);
             Cookie::forever("user_api_data", $data);
         }
         return response($request->user())->withCookie(Cookie::forever("user_api_data", $data));
-    });        
-       
-        if(Cache::get("user_api_data")){
-            if( Cache::get("user_api_data") == Cookie::get("user_api_data")){
+    });
+
+    if (Cache::get("user_api_data")) {
+        if (Cache::get("user_api_data") == Cookie::get("user_api_data")) {
 
             Route::apiResource('articles', ArticleController::class);
-
-            }
-        }  
-       
+        }
+    }
 });
-
-
-

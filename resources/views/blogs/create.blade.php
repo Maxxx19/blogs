@@ -9,11 +9,11 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
-                    
+
                     <form action="/blog" method="post">
                         @csrf
                         <div class="form-group">
@@ -30,10 +30,10 @@
                             <label for="">Publish At</label>
                             <input type="date" name="published_at" class="form-control">
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>

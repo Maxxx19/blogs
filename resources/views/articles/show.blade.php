@@ -8,20 +8,20 @@
                 <div class="card-header">{{ __('View Article') }}</div>
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
-                        @if (auth()->user()->user_type == "admin")
-                          <a href="#" class="btn btn-primary mt-0 show-add-modal">Create Article</a>
-                          <a href="{{ url('/blog/restoreArticles') }}" class="btn btn-primary mt-0">Restore deleted Articles</a>
-                          <a href="#" class="btn btn-primary mt-0 show-edit-modal">Edit Article</a>
-                          <form href="{{ url('/article/'.$article->id) }}" method="post" class="d-inline">
-                                {{ csrf_field() }}
-                                @method('DELETE')
-                                <button class="btn btn-danger" type="submit">Delete</button>
-                          </form>
-                        @endif
+                    @if (auth()->user()->user_type == "admin")
+                    <a href="#" class="btn btn-primary mt-0 show-add-modal">Create Article</a>
+                    <a href="{{ url('/blog/restoreArticles') }}" class="btn btn-primary mt-0">Restore deleted Articles</a>
+                    <a href="#" class="btn btn-primary mt-0 show-edit-modal">Edit Article</a>
+                    <form href="{{ url('/article/'.$article->id) }}" method="post" class="d-inline">
+                        {{ csrf_field() }}
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                    @endif
                     <h2>{{$article->title}}</h2>
 
                     <p>Published At: {{date('Y-m-d', strtotime($article->published_at))}}</p>
@@ -49,7 +49,7 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                        <label for="">Article Title</label>
+                            <label for="">Article Title</label>
                             <input type="text" name="title" class="form-control" value="{{$article->title}}">
                         </div>
 
@@ -62,7 +62,7 @@
                             <label for="">Publish At</label>
                             <input type="date" name="published_at" class="form-control" value="{{ date('Y-m-d', strtotime($article->published_at)) }}">
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
 
@@ -91,7 +91,7 @@
                     <div class="modal-body">
                         @csrf
                         <div class="form-group">
-                        <label for="">Article Title</label>
+                            <label for="">Article Title</label>
                             <input type="text" name="title" class="form-control" value="">
                         </div>
 
@@ -109,8 +109,8 @@
                             </br>
                             <select class="mb-3" name="blog_id">
                                 @foreach ($blogs as $blog)
-                                  <option value="{{$blog->id}}">{{ $blog->title }} </option>               
-                                @endforeach 
+                                <option value="{{$blog->id}}">{{ $blog->title }} </option>
+                                @endforeach
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -130,72 +130,70 @@
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
+    $(document).ready(function() {
 
-    var table = '#projects-table';
-    var modal_edit = '#edit-article-modal';
-    var form_edit = '#edit-modal-form';
-    var modal_add = '#add-article-modal';
-    var form_add = '#add-modal-form';
+        var table = '#projects-table';
+        var modal_edit = '#edit-article-modal';
+        var form_edit = '#edit-modal-form';
+        var modal_add = '#add-article-modal';
+        var form_add = '#add-modal-form';
 
-    $('.show-edit-modal').on('click', function(event){
-        $(modal_edit).modal('toggle');
-    });
-
-    $(form_edit).on('submit', function(event){
-
-        event.preventDefault();
-        var url = $(this).attr('data-action');
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: new FormData(this),
-            dataType: 'JSON',
-            contentType: false,
-            cache: false,
-            processData: false,
-            success:function(response)
-            {
-                $(modal_edit).modal('toggle');
-                location.reload();
-            },
-            error: function(response) {
-                //console.log('error');
-                $(modal_edit).modal('toggle');
-                location.reload();
-            }
+        $('.show-edit-modal').on('click', function(event) {
+            $(modal_edit).modal('toggle');
         });
-    });
 
-    $('.show-add-modal').on('click', function(event){
-        $(modal_add).modal('toggle');
-    });
-    $(form_add).on('submit', function(event){
+        $(form_edit).on('submit', function(event) {
 
-        event.preventDefault();
-        var url = $(this).attr('data-action');
+            event.preventDefault();
+            var url = $(this).attr('data-action');
 
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: new FormData(this),
-            dataType: 'JSON',
-            contentType: false,
-            cache: false,
-            processData: false,
-            success:function(response)
-            {
-                $(modal_add).modal('toggle');
-                location.reload();
-            },
-            error: function(response) {
-                //console.log('error');
-                $(modal_add).modal('toggle');
-
-            }
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: new FormData(this),
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(response) {
+                    $(modal_edit).modal('toggle');
+                    location.reload();
+                },
+                error: function(response) {
+                    //console.log('error');
+                    $(modal_edit).modal('toggle');
+                    location.reload();
+                }
+            });
         });
-    });
 
-});
+        $('.show-add-modal').on('click', function(event) {
+            $(modal_add).modal('toggle');
+        });
+        $(form_add).on('submit', function(event) {
+
+            event.preventDefault();
+            var url = $(this).attr('data-action');
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: new FormData(this),
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(response) {
+                    $(modal_add).modal('toggle');
+                    location.reload();
+                },
+                error: function(response) {
+                    //console.log('error');
+                    $(modal_add).modal('toggle');
+
+                }
+            });
+        });
+
+    });
 </script>

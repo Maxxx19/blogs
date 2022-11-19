@@ -9,11 +9,11 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
-                    
+
                     <form action="/article" method="post">
                         @csrf
                         <div class="form-group mb-3">
@@ -35,13 +35,13 @@
                             </br>
                             <select class="mb-3" name="blog_id">
                                 @foreach ($blogs as $blog)
-                                  <option value="{{$blog->id}}">{{ $blog->title }} </option>               
-                                @endforeach 
+                                <option value="{{$blog->id}}">{{ $blog->title }} </option>
+                                @endforeach
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>

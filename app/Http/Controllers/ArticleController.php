@@ -40,7 +40,7 @@ class ArticleController extends Controller
         $article->blog_id = $request->blog_id;
         $article->save();
 
-        return redirect("/home")->with("success","Article created successfully!");
+        return redirect("/home")->with("success", "Article created successfully!");
     }
 
     public function show(Article $article)
@@ -67,14 +67,13 @@ class ArticleController extends Controller
         $article->published_at = $request->published_at;
         $article->save();
 
-        return redirect("/home")->with("success","Article updated successfully!");
+        return redirect("/home")->with("success", "Article updated successfully!");
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
 
-        return redirect("/home")->with("success","Article deleted successfully!");
+        return redirect("/home")->with("success", "Article deleted successfully!");
     }
-
 }

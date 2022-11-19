@@ -10,7 +10,7 @@ class Article extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
+
     protected $table = 'articles';
     public $timestamps = true;
 
@@ -23,6 +23,6 @@ class Article extends Model
 
     public function blog()
     {
-    	return $this->belongsTo('App\Blog');
+        return $this->belongsTo('App\Blog');
     }
 }

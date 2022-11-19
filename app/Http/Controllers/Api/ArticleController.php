@@ -45,22 +45,23 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $blog_last_id = Blog::latest()->first()->id;
-            
-        $validator =  Validator::make($request->all(),[
-          "title" => "required|min:3|max:35",
-          "body" => "required|max:1000",
-          "published_at" => "required",
-          "blog_id" => "required|numeric|max:".$blog_last_id,
+
+        $validator =  Validator::make($request->all(), [
+            "title" => "required|min:3|max:35",
+            "body" => "required|max:1000",
+            "published_at" => "required",
+            "blog_id" => "required|numeric|max:" . $blog_last_id,
         ]);
 
         if ($validator->fails()) {
 
             return response()->json([
-               "message"   => $validator->errors()->all()]);
+                "message"   => $validator->errors()->all()
+            ]);
         }
 
         $article = Article::create($request->all());
-        
+
         return response()->json([
             "status" => true,
             "message" => "Article Created successfully!",
@@ -124,4 +125,3 @@ class ArticleController extends Controller
         ], 200);
     }
 }
-
